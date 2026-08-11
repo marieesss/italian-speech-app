@@ -13,6 +13,8 @@ public static class DotEnv
         ["JWT_AUDIENCE"] = "Jwt:Audience",
         ["JWT_LIFETIME_HOURS"] = "Jwt:LifetimeHours",
 
+        ["IDENTITY_ALLOW_REGISTRATION"] = "Identity:AllowRegistration",
+
         ["AZURE_SPEECH_SUBSCRIPTION"] = "Azure:Speech:Subscription",
         ["AZURE_SPEECH_REGION"] = "Azure:Speech:Region",
         ["AZURE_SPEECH_ITALIAN_VOICE"] = "Azure:Speech:ItalianVoice",

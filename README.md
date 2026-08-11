@@ -36,6 +36,15 @@ Tests :
 dotnet test
 ```
 
+Les tests d'intégration démarrent un PostgreSQL jetable via Testcontainers — Docker doit
+tourner, mais aucune clé d'API n'est nécessaire.
+
+## Compte
+
+L'inscription est ouverte par défaut pour créer le compte initial. Une fois celui-ci créé,
+passer `IDENTITY_ALLOW_REGISTRATION=false` : l'application n'a qu'une utilisatrice, et une
+inscription ouverte sur une URL publique n'a aucune raison de le rester.
+
 ---
 
 ## Trois décisions d'architecture

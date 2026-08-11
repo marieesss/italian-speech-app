@@ -1,3 +1,4 @@
+using ItalianApp.Api.Features.Identity;
 using ItalianApp.Api.Infrastructure.Configuration;
 using ItalianApp.Api.Infrastructure.Persistence;
 
@@ -6,8 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddDotEnv(builder.Environment.ContentRootPath);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddSwaggerGen(SwaggerSetup.Configure);
+builder.Services.AddProblemDetails();
+builder.Services.AddSingleton(TimeProvider.System);
+
+builder.Services.AddPersistence();
+builder.Services.AddIdentityFeature(builder.Configuration);
 
 var app = builder.Build();
 
@@ -22,9 +27,14 @@ if (app.Environment.IsDevelopment())
 // Model MP3s are served from wwwroot/audio/it/.
 app.UseStaticFiles();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }))
    .WithName("Health")
    .WithTags("Diagnostics");
+
+app.MapIdentityEndpoints();
 
 app.Run();
 

@@ -4,12 +4,17 @@ namespace ItalianApp.Api.Infrastructure.Persistence;
 
 public static class DatabaseSetup
 {
-    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPersistence(this IServiceCollection services)
     {
-        var connectionString = configuration.GetConnectionString("Default")
-            ?? throw new InvalidOperationException("Missing connection string 'Default'.");
+        // Resolved from the provider, not captured at registration: configuration sources
+        // added later (WebApplicationFactory in tests) must still win.
+        services.AddDbContext<AppDbContext>((provider, options) =>
+        {
+            var configuration = provider.GetRequiredService<IConfiguration>();
 
-        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+            options.UseNpgsql(configuration.GetConnectionString("Default")
+                ?? throw new InvalidOperationException("Missing connection string 'Default'."));
+        });
 
         return services;
     }

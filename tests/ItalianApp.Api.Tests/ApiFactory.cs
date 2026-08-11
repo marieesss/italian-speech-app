@@ -15,7 +15,8 @@ public class ApiFactory : WebApplicationFactory<Program>
         {
             configuration.AddInMemoryCollection(new Dictionary<string, string?>
             {
-                ["ConnectionStrings:Default"] = "Host=localhost;Database=unused;Username=unused;Password=unused"
+                ["ConnectionStrings:Default"] = "Host=localhost;Database=unused;Username=unused;Password=unused",
+                ["Jwt:SigningSecret"] = "api-factory-signing-secret-0123456789012"
             });
         });
     }
