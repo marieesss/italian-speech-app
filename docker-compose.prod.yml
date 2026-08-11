@@ -19,6 +19,9 @@ services:
       retries: 10
 
   api:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: ${API_IMAGE:-italian-app-api:local}
     container_name: italian-app-api
     restart: unless-stopped
