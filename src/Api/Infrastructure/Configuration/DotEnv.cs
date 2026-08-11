@@ -14,6 +14,7 @@ public static class DotEnv
         ["JWT_LIFETIME_HOURS"] = "Jwt:LifetimeHours",
 
         ["IDENTITY_ALLOW_REGISTRATION"] = "Identity:AllowRegistration",
+        ["IDENTITY_ADMIN_EMAILS"] = "Identity:AdminEmails",
 
         ["AZURE_SPEECH_SUBSCRIPTION"] = "Azure:Speech:Subscription",
         ["AZURE_SPEECH_REGION"] = "Azure:Speech:Region",
@@ -24,7 +25,8 @@ public static class DotEnv
 
         ["QUOTA_SCORING_CALLS_PER_DAY"] = "Quota:ScoringCallsPerDay",
         ["QUOTA_LLM_CALLS_PER_DAY"] = "Quota:LlmCallsPerDay",
-        ["QUOTA_TTS_CALLS_PER_DAY"] = "Quota:TtsCallsPerDay"
+        ["QUOTA_TTS_CALLS_PER_DAY"] = "Quota:TtsCallsPerDay",
+        ["QUOTA_TIME_ZONE"] = "Quota:TimeZone"
     };
 
     public static IConfigurationBuilder AddDotEnv(this IConfigurationBuilder builder, string startDirectory)

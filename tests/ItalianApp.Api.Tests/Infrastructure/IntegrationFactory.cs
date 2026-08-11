@@ -1,10 +1,15 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ItalianApp.Api.Tests.Infrastructure;
 
-public class IntegrationFactory(string connectionString, Dictionary<string, string?>? overrides = null)
+public class IntegrationFactory(
+    string connectionString,
+    Dictionary<string, string?>? overrides = null,
+    Action<IServiceCollection>? services = null)
     : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -24,5 +29,10 @@ public class IntegrationFactory(string connectionString, Dictionary<string, stri
         }
 
         builder.ConfigureAppConfiguration((_, configuration) => configuration.AddInMemoryCollection(settings));
+
+        if (services is not null)
+        {
+            builder.ConfigureTestServices(services);
+        }
     }
 }

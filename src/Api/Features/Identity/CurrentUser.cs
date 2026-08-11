@@ -15,4 +15,8 @@ public static class CurrentUser
             ? id
             : throw new InvalidOperationException("Authenticated principal carries no usable subject claim.");
     }
+
+    public static string? Email(this ClaimsPrincipal principal) =>
+        principal.FindFirstValue(JwtRegisteredClaimNames.Email)
+        ?? principal.FindFirstValue(ClaimTypes.Email);
 }

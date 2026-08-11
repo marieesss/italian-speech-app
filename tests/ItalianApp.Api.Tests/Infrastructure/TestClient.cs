@@ -7,13 +7,13 @@ namespace ItalianApp.Api.Tests.Infrastructure;
 public static class TestClient
 {
     // Every protected endpoint needs a real token, so tests register a throwaway account.
-    public static async Task<HttpClient> AuthenticatedAsync(IntegrationFactory factory)
+    public static async Task<HttpClient> AuthenticatedAsync(IntegrationFactory factory, string? email = null)
     {
         var client = factory.CreateClient();
 
         var response = await client.PostAsJsonAsync(
             "/api/auth/register",
-            new RegisterRequest($"user-{Guid.NewGuid():N}@example.com", "una-password-lunga", "Anna"));
+            new RegisterRequest(email ?? $"user-{Guid.NewGuid():N}@example.com", "una-password-lunga", "Anna"));
 
         response.EnsureSuccessStatusCode();
 
