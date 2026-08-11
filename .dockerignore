@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+**/.vs/
+.git/
+.github/
+artifacts/
+tests/
+content/
+node_modules/
+dist/
+.env
+.env.local
+*.user
+*.log
+README.md
+docker-compose*.yml

@@ -1,0 +1,42 @@
+# Production stack. Nothing is published on the public interface: the API is bound to
+# 127.0.0.1 and reached through the host's nginx, the database is reachable only from
+# the project's own Docker network.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: italian-app-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: italianapp
+      POSTGRES_USER: italianapp
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U italianapp -d italianapp"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  api:
+    image: ${API_IMAGE:-italian-app-api:local}
+    container_name: italian-app-api
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${API_PORT:-8081}:8080"
+    volumes:
+      # MP3s produced by seed-audio outlive the container.
+      - ./audio:/app/wwwroot/audio/it
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  db-data:
