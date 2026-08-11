@@ -1,3 +1,4 @@
+using ItalianApp.Api.Features.Catalog;
 using ItalianApp.Api.Features.Identity;
 using ItalianApp.Api.Infrastructure.Configuration;
 using ItalianApp.Api.Infrastructure.Persistence;
@@ -35,6 +36,7 @@ app.MapGet("/health", () => Results.Ok(new { status = "ok" }))
    .WithTags("Diagnostics");
 
 app.MapIdentityEndpoints();
+app.MapCatalogEndpoints();
 
 app.Run();
 
