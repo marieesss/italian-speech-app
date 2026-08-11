@@ -23,6 +23,11 @@ public static class DotEnv
         ["ANTHROPIC_TOKEN"] = "Anthropic:Token",
         ["ANTHROPIC_MODEL"] = "Anthropic:Model",
 
+        ["PRACTICE_PASSING_SCORE"] = "Practice:PassingScore",
+        ["PRACTICE_WEAK_PHONEME_THRESHOLD"] = "Practice:WeakPhonemeThreshold",
+        ["PRACTICE_REVIEW_INTERVAL_DAYS"] = "Practice:ReviewIntervalDays",
+        ["PRACTICE_SESSION_SIZE"] = "Practice:DefaultSessionSize",
+
         ["QUOTA_SCORING_CALLS_PER_DAY"] = "Quota:ScoringCallsPerDay",
         ["QUOTA_LLM_CALLS_PER_DAY"] = "Quota:LlmCallsPerDay",
         ["QUOTA_TTS_CALLS_PER_DAY"] = "Quota:TtsCallsPerDay",
