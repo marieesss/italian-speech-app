@@ -8,23 +8,13 @@ namespace ItalianApp.Api.Features.Progress;
 
 public enum FeedbackSource
 {
-    /// <summary>Conseils issus de la table <c>PhoneticTips</c>, servis tels quels.</summary>
     Rules,
-
-    /// <summary>Mêmes conseils, reformulés par Claude.</summary>
     Llm
 }
 
-/// <summary>Score d'un phonème isolé tel que rendu par Azure, conservé pour l'historique.</summary>
-/// <param name="Word">Mot dans lequel le phonème apparaît.</param>
-/// <param name="Phoneme">Symbole du phonème.</param>
-/// <param name="Score">0 à 100.</param>
 public record PhonemeScore(string Word, string Phoneme, double Score);
 
-/// <summary>
-/// Une répétition scorée. <b>L'audio n'est pas conservé</b> : seuls les nombres et le texte
-/// du feedback survivent à la requête (cf. README, décision 3).
-/// </summary>
+// One scored repetition. The audio is not stored — only the numbers survive the request.
 public class Attempt
 {
     public Guid Id { get; set; }
@@ -64,7 +54,6 @@ public class AttemptConfiguration : IEntityTypeConfiguration<Attempt>
                .HasForeignKey(x => x.PhraseId)
                .OnDelete(DeleteBehavior.Cascade);
 
-        // Sert la courbe de progression et l'historique par phrase.
         builder.HasIndex(x => new { x.UserId, x.AttemptedAt });
         builder.HasIndex(x => new { x.UserId, x.PhraseId, x.AttemptedAt });
 

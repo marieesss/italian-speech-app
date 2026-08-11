@@ -6,7 +6,7 @@ namespace ItalianApp.Api.Tests;
 public class HealthEndpointTests(ApiFactory factory) : IClassFixture<ApiFactory>
 {
     [Fact]
-    public async Task Health_repond_ok()
+    public async Task Health_returns_ok()
     {
         var client = factory.CreateClient();
 

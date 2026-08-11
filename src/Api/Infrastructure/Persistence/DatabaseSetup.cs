@@ -7,18 +7,14 @@ public static class DatabaseSetup
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("Default")
-            ?? throw new InvalidOperationException("Chaîne de connexion 'Default' absente de la configuration.");
+            ?? throw new InvalidOperationException("Missing connection string 'Default'.");
 
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
         return services;
     }
 
-    /// <summary>
-    /// Applique les migrations en attente et complète la table des conseils phonétiques.
-    /// Piloté par <c>Database:AutoMigrate</c> (vrai par défaut) : à couper si le déploiement
-    /// applique les migrations dans une étape séparée.
-    /// </summary>
+    // Turn off Database:AutoMigrate when the deployment migrates in a separate step.
     public static async Task InitialiseDatabaseAsync(this WebApplication app)
     {
         if (!app.Configuration.GetValue("Database:AutoMigrate", defaultValue: true))

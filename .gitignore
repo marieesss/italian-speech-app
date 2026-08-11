@@ -11,19 +11,19 @@ node_modules/
 dist/
 .vite/
 
-## Secrets & config locale
+## Secrets
 .env
 .env.local
 appsettings.Local.json
 appsettings.*.Local.json
 
-## Contenu généré
-# Les MP3 modèles sont générés par `seed-audio`, pas versionnés.
+## Generated content
+# MP3s come from seed-audio.
 src/Api/wwwroot/audio/it/*.mp3
-# Sortie brute de `seed-content` : relue puis promue dans content/reviewed/.
+# Raw seed-content output, reviewed then promoted to content/reviewed/.
 content/generated/*.json
 
-## Divers
+## Misc
 .DS_Store
 Thumbs.db
 *.log

@@ -6,7 +6,7 @@ namespace ItalianApp.Api.Tests.Catalog;
 public class PhoneticTrapTests
 {
     [Fact]
-    public void Un_code_nu_na_pas_dargument()
+    public void Bare_code_has_no_argument()
     {
         var trap = PhoneticTrap.Parse("gli");
 
@@ -15,7 +15,7 @@ public class PhoneticTrapTests
     }
 
     [Fact]
-    public void Largument_est_separe_par_deux_points()
+    public void Argument_follows_a_colon()
     {
         var trap = PhoneticTrap.Parse("double_consonant:tt");
 
@@ -24,7 +24,7 @@ public class PhoneticTrapTests
     }
 
     [Fact]
-    public void Largument_peut_porter_des_accents()
+    public void Argument_keeps_accented_characters()
     {
         var trap = PhoneticTrap.Parse("stress:prenotàre");
 
@@ -36,7 +36,7 @@ public class PhoneticTrapTests
     [InlineData("  gn  ", "gn", null)]
     [InlineData("gn:", "gn", null)]
     [InlineData("sc_soft : sce", "sc_soft", "sce")]
-    public void Les_espaces_et_arguments_vides_sont_normalises(string raw, string code, string? argument)
+    public void Whitespace_and_empty_arguments_are_normalised(string raw, string code, string? argument)
     {
         var trap = PhoneticTrap.Parse(raw);
 
@@ -45,7 +45,7 @@ public class PhoneticTrapTests
     }
 
     [Fact]
-    public void ToString_restitue_la_forme_dorigine()
+    public void ToString_round_trips()
     {
         PhoneticTrap.Parse("double_consonant:tt").ToString().Should().Be("double_consonant:tt");
         PhoneticTrap.Parse("rolled_r").ToString().Should().Be("rolled_r");
@@ -54,7 +54,7 @@ public class PhoneticTrapTests
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
-    public void Un_code_vide_est_rejete(string raw)
+    public void Empty_code_is_rejected(string raw)
     {
         var act = () => PhoneticTrap.Parse(raw);
 

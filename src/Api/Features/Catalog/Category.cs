@@ -3,12 +3,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ItalianApp.Api.Features.Catalog;
 
-/// <summary>Regroupement de haut niveau : restaurant, boutique, transports, hôtel.</summary>
 public class Category
 {
     public Guid Id { get; set; }
 
-    /// <summary>Identifiant lisible, stable, utilisé par le pipeline de contenu.</summary>
+    // Stable handle used by the content pipeline.
     public required string Slug { get; set; }
 
     public required string NameFr { get; set; }

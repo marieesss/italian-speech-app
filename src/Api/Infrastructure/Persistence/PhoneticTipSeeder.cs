@@ -5,14 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ItalianApp.Api.Infrastructure.Persistence;
 
-/// <summary>
-/// Insère les conseils phonétiques manquants au démarrage.
-/// <para>
-/// Volontairement <b>pas</b> un <c>HasData</c> de migration : la table est du contenu éditable
-/// en base, et une migration réécrirait les corrections apportées à la main. Le seeder
-/// n'ajoute que les codes absents et ne touche jamais à une ligne existante.
-/// </para>
-/// </summary>
+// Deliberately not HasData: the table is edited in place, and a migration would
+// overwrite those edits. Only missing codes are inserted.
 public static class PhoneticTipSeeder
 {
     private const string ResourceName = "ItalianApp.Api.Infrastructure.Persistence.Seed.phonetic-tips.json";
@@ -41,9 +35,9 @@ public static class PhoneticTipSeeder
     private static List<PhoneticTip> ReadSeedFile()
     {
         using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(ResourceName)
-            ?? throw new InvalidOperationException($"Ressource embarquée introuvable : {ResourceName}");
+            ?? throw new InvalidOperationException($"Embedded resource not found: {ResourceName}");
 
         return JsonSerializer.Deserialize<List<PhoneticTip>>(stream, new JsonSerializerOptions(JsonSerializerDefaults.Web))
-            ?? throw new InvalidOperationException($"Contenu illisible dans {ResourceName}");
+            ?? throw new InvalidOperationException($"Unreadable content in {ResourceName}");
     }
 }

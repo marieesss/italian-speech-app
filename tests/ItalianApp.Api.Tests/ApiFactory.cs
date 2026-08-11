@@ -4,11 +4,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace ItalianApp.Api.Tests;
 
-/// <summary>
-/// Hôte de test pour les endpoints qui ne touchent pas la base.
-/// Coupe la migration au démarrage : sans cela, le simple fait de créer un client
-/// exigerait un PostgreSQL joignable.
-/// </summary>
+// For endpoints that don't touch the database. Without AutoMigrate off, creating a
+// client would require a reachable PostgreSQL.
 public class ApiFactory : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)

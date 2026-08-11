@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ItalianApp.Api.Features.Catalog;
 
-/// <summary>Situation concrète à l'intérieur d'une catégorie : « commander au comptoir », « demander l'addition ».</summary>
 public class Scenario
 {
     public Guid Id { get; set; }

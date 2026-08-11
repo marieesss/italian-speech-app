@@ -1,11 +1,7 @@
 namespace ItalianApp.Api.Features.Catalog;
 
-/// <summary>
-/// Code de piège phonétique annoté sur une phrase, sous la forme <c>code</c> ou <c>code:argument</c>.
-/// L'argument précise l'occurrence concernée : <c>double_consonant:tt</c>, <c>stress:prenotàre</c>.
-/// </summary>
-/// <param name="Code">Code normalisé, clé de la table de conseils.</param>
-/// <param name="Argument">Précision facultative, affichée telle quelle dans le conseil.</param>
+// "code" or "code:argument", where the argument pins the occurrence:
+// double_consonant:tt, stress:prenotàre.
 public readonly record struct PhoneticTrap(string Code, string? Argument)
 {
     public static PhoneticTrap Parse(string raw)

@@ -10,13 +10,14 @@ public static class JsonbConversion
 {
     private static readonly JsonSerializerOptions Options = new(JsonSerializerDefaults.Web);
 
+    // These columns are never queried in SQL, so a string conversion is enough.
     public static PropertyBuilder<T> HasJsonbConversion<T>(this PropertyBuilder<T> builder)
     {
         var converter = new ValueConverter<T, string>(
             value => JsonSerializer.Serialize(value, Options),
             json => JsonSerializer.Deserialize<T>(json, Options)!);
 
-        // Sans comparateur explicite, EF ne détecte pas les mutations internes d'une liste.
+        // Without an explicit comparer, EF misses in-place mutations of a list.
         var comparer = new ValueComparer<T>(
             (left, right) => JsonSerializer.Serialize(left, Options) == JsonSerializer.Serialize(right, Options),
             value => JsonSerializer.Serialize(value, Options).GetHashCode(StringComparison.Ordinal),

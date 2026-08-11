@@ -7,7 +7,7 @@ public class User
 {
     public Guid Id { get; set; }
 
-    /// <summary>Stocké en minuscules, sert d'identifiant de connexion.</summary>
+    // Stored lowercase.
     public required string Email { get; set; }
 
     public required string PasswordHash { get; set; }

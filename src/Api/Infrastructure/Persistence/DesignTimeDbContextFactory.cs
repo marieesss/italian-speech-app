@@ -3,15 +3,13 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace ItalianApp.Api.Infrastructure.Persistence;
 
-/// <summary>
-/// Utilisé uniquement par <c>dotnet ef</c>. Évite que l'outillage démarre l'application
-/// complète — et donc tente d'appliquer les migrations qu'il est justement en train de créer.
-/// </summary>
+// Used only by dotnet ef. Stops the tooling from booting the whole app, which would
+// try to apply the migration it is creating.
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
     public AppDbContext CreateDbContext(string[] args)
     {
-        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Default")
+        var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION")
             ?? "Host=localhost;Port=5434;Database=italianapp;Username=italianapp;Password=italianapp";
 
         var options = new DbContextOptionsBuilder<AppDbContext>()

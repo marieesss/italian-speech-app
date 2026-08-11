@@ -1,6 +1,9 @@
+using ItalianApp.Api.Infrastructure.Configuration;
 using ItalianApp.Api.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddDotEnv(builder.Environment.ContentRootPath);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -16,7 +19,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Les MP3 modèles sont servis en statique depuis wwwroot/audio/it/ (cf. §2.2).
+// Model MP3s are served from wwwroot/audio/it/.
 app.UseStaticFiles();
 
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }))
@@ -25,7 +28,5 @@ app.MapGet("/health", () => Results.Ok(new { status = "ok" }))
 
 app.Run();
 
-/// <summary>
-/// Exposé pour <c>WebApplicationFactory&lt;Program&gt;</c> dans les tests d'intégration.
-/// </summary>
+// Exposed for WebApplicationFactory<Program> in the integration tests.
 public partial class Program;

@@ -4,42 +4,29 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ItalianApp.Api.Features.Catalog;
 
-/// <summary>
-/// Unité d'entraînement. L'<see cref="Id"/> est stable : il sert de clé pour le fichier
-/// audio (<c>/audio/it/{id}.mp3</c>) et pour la progression de l'utilisatrice.
-/// </summary>
 public class Phrase
 {
+    // Stable: also keys the audio file (/audio/it/{id}.mp3) and the user's progress.
     public Guid Id { get; set; }
+
     public Guid ScenarioId { get; set; }
 
-    /// <summary>Phrase cible, celle qui est prononcée et scorée.</summary>
     public required string TextIt { get; set; }
-
     public required string TextFr { get; set; }
 
-    /// <summary>Mise en situation affichée avant la phrase.</summary>
+    // Situation shown before the phrase itself.
     public required string ContextFr { get; set; }
 
-    /// <summary>1 à 3.</summary>
     public int Difficulty { get; set; } = 1;
 
-    /// <summary>
-    /// Codes de pièges phonétiques, éventuellement paramétrés :
-    /// <c>["double_consonant:tt", "stress:prenotàre", "gli"]</c>. Voir <see cref="PhoneticTrap"/>.
-    /// </summary>
+    // Codes, optionally parameterised: ["double_consonant:tt", "stress:prenotàre", "gli"].
     public List<string> PhoneticTraps { get; set; } = [];
 
-    /// <summary>Renseigné par <c>seed-audio</c>. Nul tant que le MP3 n'existe pas.</summary>
+    // Both set by seed-audio. Null until the MP3 exists.
     public string? AudioUrl { get; set; }
-
-    /// <summary>Voix ayant produit le MP3, pour savoir quoi regénérer si la voix change.</summary>
     public string? TtsVoice { get; set; }
 
-    /// <summary>
-    /// Date de validation humaine. Une phrase sans <c>ReviewedAt</c> n'est jamais servie
-    /// à l'utilisatrice : la relecture n'est pas optionnelle (cf. README, pipeline de contenu).
-    /// </summary>
+    // A phrase without ReviewedAt is never served. Review is not optional.
     public DateTimeOffset? ReviewedAt { get; set; }
 
     public Scenario Scenario { get; set; } = null!;
@@ -67,10 +54,9 @@ public class PhraseConfiguration : IEntityTypeConfiguration<Phrase>
 
         builder.Property(x => x.PhoneticTraps).HasJsonbConversion();
 
-        // Deux phrases identiques dans un même scénario sont une erreur de contenu.
+        // Duplicate phrase within a scenario is a content error.
         builder.HasIndex(x => new { x.ScenarioId, x.TextIt }).IsUnique();
 
-        // Sert la file de drill : on ne lit jamais que les phrases relues.
         builder.HasIndex(x => new { x.ScenarioId, x.ReviewedAt, x.Difficulty });
     }
 }

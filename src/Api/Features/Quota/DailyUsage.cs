@@ -4,21 +4,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ItalianApp.Api.Features.Quota;
 
-/// <summary>
-/// Compteurs d'appels externes consommés dans la journée, par utilisatrice.
-/// Réinitialisation implicite à minuit : une nouvelle date crée une nouvelle ligne.
-/// </summary>
+// Resets implicitly at midnight: a new date means a new row.
 public class DailyUsage
 {
     public Guid UserId { get; set; }
-
-    /// <summary>Date locale de l'application (pas d'heure), clé de partition du compteur.</summary>
     public DateOnly Date { get; set; }
 
     public int ScoringCalls { get; set; }
     public int LlmCalls { get; set; }
 
-    /// <summary>Doit rester à 0 : la synthèse vocale au runtime est interdite par conception.</summary>
+    // Stays at 0: runtime speech synthesis is forbidden by design.
     public int TtsCalls { get; set; }
 
     public User User { get; set; } = null!;
@@ -36,7 +31,6 @@ public class DailyUsageConfiguration : IEntityTypeConfiguration<DailyUsage>
                .HasForeignKey(x => x.UserId)
                .OnDelete(DeleteBehavior.Cascade);
 
-        // Sert l'endpoint d'observabilité : consommation des 30 derniers jours.
         builder.HasIndex(x => x.Date);
     }
 }
