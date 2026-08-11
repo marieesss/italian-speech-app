@@ -1,0 +1,79 @@
+[
+  {
+    "code": "double_consonant",
+    "labelFr": "Consonne double",
+    "adviceFr": "En italien, la consonne double se tient environ deux fois plus longtemps qu'en français. Marquez une micro-pause sur la consonne.",
+    "phonemeSymbols": [],
+    "displayOrder": 10
+  },
+  {
+    "code": "stress",
+    "labelFr": "Accent tonique",
+    "adviceFr": "L'accent tonique italien est mobile. Ici il tombe sur l'avant-dernière syllabe, pas sur la dernière comme le réflexe français y pousse.",
+    "phonemeSymbols": [],
+    "displayOrder": 20
+  },
+  {
+    "code": "final_vowel",
+    "labelFr": "Voyelle finale",
+    "adviceFr": "Les voyelles finales italiennes se prononcent pleinement, elles ne sont jamais avalées.",
+    "phonemeSymbols": [],
+    "displayOrder": 30
+  },
+  {
+    "code": "rolled_r",
+    "labelFr": "R roulé",
+    "adviceFr": "Le r italien est roulé, pointe de langue contre les alvéoles.",
+    "phonemeSymbols": ["r", "ɾ"],
+    "displayOrder": 40
+  },
+  {
+    "code": "gli",
+    "labelFr": "Groupe « gli »",
+    "adviceFr": "Le groupe « gli » se prononce comme le « ill » de « famille », en un seul mouvement.",
+    "phonemeSymbols": ["ʎ"],
+    "displayOrder": 50
+  },
+  {
+    "code": "gn",
+    "labelFr": "Groupe « gn »",
+    "adviceFr": "Le groupe « gn » se prononce comme dans « agneau ».",
+    "phonemeSymbols": ["ɲ"],
+    "displayOrder": 60
+  },
+  {
+    "code": "sc_soft",
+    "labelFr": "« sc » doux",
+    "adviceFr": "Devant e ou i, « sc » se prononce « ch ».",
+    "phonemeSymbols": ["ʃ"],
+    "displayOrder": 70
+  },
+  {
+    "code": "c_hard",
+    "labelFr": "« c » dur",
+    "adviceFr": "Le c est dur devant a, o, u : il se prononce « k ».",
+    "phonemeSymbols": ["k"],
+    "displayOrder": 80
+  },
+  {
+    "code": "c_soft",
+    "labelFr": "« c » doux",
+    "adviceFr": "Le c est doux devant e et i : il se prononce « tch ».",
+    "phonemeSymbols": ["tʃ"],
+    "displayOrder": 90
+  },
+  {
+    "code": "g_hard",
+    "labelFr": "« g » dur",
+    "adviceFr": "Le g est dur devant a, o, u : il se prononce comme dans « gare ».",
+    "phonemeSymbols": ["g", "ɡ"],
+    "displayOrder": 100
+  },
+  {
+    "code": "g_soft",
+    "labelFr": "« g » doux",
+    "adviceFr": "Le g est doux devant e et i : il se prononce « dj ».",
+    "phonemeSymbols": ["dʒ"],
+    "displayOrder": 110
+  }
+]
