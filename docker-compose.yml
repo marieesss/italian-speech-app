@@ -16,5 +16,22 @@ services:
       timeout: 3s
       retries: 10
 
+  # Desktop mode: no login screen, no master password. Local development only.
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: italian-app-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dev@italian-app.local
+      PGADMIN_DEFAULT_PASSWORD: dev
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    ports:
+      - "127.0.0.1:5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db
+
 volumes:
   db-data:
+  pgadmin-data:

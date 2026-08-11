@@ -1,8 +1,7 @@
 name: CI
 
+# Pushes to main are covered by the Deploy workflow, which runs the same tests first.
 on:
-  push:
-    branches: [main]
   pull_request:
 
 jobs:

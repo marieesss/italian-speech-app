@@ -10,6 +10,9 @@ services:
       POSTGRES_DB: italianapp
       POSTGRES_USER: italianapp
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    ports:
+      # Loopback only: reachable through an SSH tunnel, never from the internet.
+      - "127.0.0.1:${DB_PORT:-5433}:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     healthcheck:
@@ -26,6 +29,10 @@ services:
     container_name: italian-app-api
     restart: unless-stopped
     env_file: .env
+    environment:
+      # Built from POSTGRES_PASSWORD so the credentials cannot drift apart.
+      # Overrides any DB_CONNECTION coming from the .env file.
+      DB_CONNECTION: "Host=db;Port=5432;Database=italianapp;Username=italianapp;Password=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}"
     depends_on:
       db:
         condition: service_healthy
