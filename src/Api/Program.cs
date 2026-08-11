@@ -1,5 +1,6 @@
 using ItalianApp.Api.Features.Catalog;
 using ItalianApp.Api.Features.Identity;
+using ItalianApp.Api.Infrastructure;
 using ItalianApp.Api.Infrastructure.Configuration;
 using ItalianApp.Api.Infrastructure.Persistence;
 
@@ -14,6 +15,7 @@ builder.Services.AddSingleton(TimeProvider.System);
 
 builder.Services.AddPersistence();
 builder.Services.AddIdentityFeature(builder.Configuration);
+builder.Services.AddExternalServices();
 
 var app = builder.Build();
 

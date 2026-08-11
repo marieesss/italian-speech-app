@@ -1,6 +1,7 @@
 using ItalianApp.Api.Features.Catalog;
 using ItalianApp.Api.Features.Identity;
 using ItalianApp.Api.Infrastructure.Persistence;
+using ItalianApp.Api.Infrastructure.Speech;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,8 +12,6 @@ public enum FeedbackSource
     Rules,
     Llm
 }
-
-public record PhonemeScore(string Word, string Phoneme, double Score);
 
 // One scored repetition. The audio is not stored — only the numbers survive the request.
 public class Attempt
